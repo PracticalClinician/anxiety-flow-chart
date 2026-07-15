@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1F3A3D">
+    <title>Anxiety Flowchart - Practical Clinician™</title>
+    <style>
+        /* CSS Reset & Normalization */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1F3A3D;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(24px, 5vw, 28px);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            margin-top: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            -webkit-transition: width 0.3s ease;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .content {
+            padding: 40px 20px;
+            min-height: 400px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+        }
+
+        .flowchart-node {
+            display: none;
+        }
+
+        .flowchart-node.active {
+            display: block;
+            -webkit-animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+                -webkit-transform: translateY(10px);
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                -webkit-transform: translateY(10px);
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        .node-box {
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            border: 3px solid #1F3A3D;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .node-box.start {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, #fffef0 0%, #fffaf0 100%);
+        }
+
+        .node-box.outcome {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+        }
+
+        .node-box.warning {
+            border-color: #FF9800;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0e8 100%);
+        }
+
+        .node-title {
+            font-size: clamp(18px, 4vw, 20px);
+            font-weight: bold;
+            color: #1F3A3D;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .node-description {
+            font-size: 15px;
+            color: #333333;
+            line-height: 1.6;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .button-group {
+            display: -webkit-flex;
+            display: flex;
+            gap: 15px;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-justify-content: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #1F3A3D;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            min-height: 44px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        button:hover {
+            background: #2d5559;
+            -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(31, 58, 61, 0.3);
+            -webkit-box-shadow: 0 4px 12px rgba(31, 58, 61, 0.3);
+        }
+
+        button:active {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        button:focus {
+            outline: 2px solid #1F3A3D;
+            outline-offset: 2px;
+        }
+
+        .back-btn {
+            background: #999999;
+            font-size: 13px;
+            padding: 10px 16px;
+            min-width: 100px;
+        }
+
+        .back-btn:hover {
+            background: #777777;
+        }
+
+        .restart-btn {
+            background: #FF9800;
+            font-size: 13px;
+            padding: 10px 16px;
+            min-width: 120px;
+        }
+
+        .restart-btn:hover {
+            background: #E68900;
+        }
+
+        .controls {
+            display: -webkit-flex;
+            display: flex;
+            gap: 10px;
+            -webkit-justify-content: center;
+            justify-content: center;
+            margin-top: 20px;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .outcome-box {
+            background: #f0f8f0;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .outcome-box h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .strategy-list {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .strategy-list li {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #999999;
+            border-top: 1px solid #eeeeee;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer p {
+            margin: 8px 0;
+        }
+
+        /* Tablet and smaller devices */
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px 15px;
+            }
+
+            .node-box {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .node-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .node-description {
+                font-size: 14px;
+            }
+
+            .button-group {
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            button {
+                min-width: 100%;
+                padding: 14px 20px;
+                font-size: 16px;
+            }
+
+            .back-btn,
+            .restart-btn {
+                min-width: 100%;
+            }
+
+            .controls {
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .outcome-box {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .outcome-box h3 {
+                font-size: 15px;
+            }
+
+            .strategy-list li {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+
+            .header {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+                margin-bottom: 5px;
+            }
+
+            .header p {
+                font-size: 13px;
+            }
+
+            .footer {
+                font-size: 10px;
+                padding: 12px 15px;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 8px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .node-box {
+                padding: 18px;
+                border-width: 2px;
+            }
+
+            .node-title {
+                font-size: 17px;
+            }
+
+            .node-description {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            button {
+                min-width: 100%;
+                padding: 14px 16px;
+                font-size: 15px;
+                min-height: 48px;
+            }
+
+            .button-group {
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .outcome-box {
+                padding: 12px;
+                margin: 12px 0;
+            }
+
+            .strategy-list li {
+                margin-left: 12px;
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .progress-bar {
+                margin-top: 12px;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: more) {
+            button {
+                border: 2px solid #1F3A3D;
+            }
+
+            .node-box {
+                border-width: 4px;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                -webkit-animation-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                -webkit-animation-iteration-count: 1 !important;
+                animation-iteration-count: 1 !important;
+                -webkit-transition-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            button,
+            .footer {
+                display: none;
+            }
+        }
+
+
+        /* Coping Tools Styling */
+        .tools-toggle-btn {
+            background: #4CAF50;
+            margin-top: 15px;
+            font-size: 12px;
+            padding: 8px 16px;
+            min-width: auto;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .tools-toggle-btn:hover {
+            background: #45a049;
+        }
+
+        .tools-panel {
+            display: none;
+            background: #f5f5f5;
+            border-top: 2px solid #4CAF50;
+            padding: 30px 20px;
+            max-height: 0;
+            overflow: hidden;
+            -webkit-transition: max-height 0.4s ease;
+            transition: max-height 0.4s ease;
+        }
+
+        .tools-panel.active {
+            display: block;
+            max-height: 2000px;
+        }
+
+        .tools-grid {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            gap: 20px;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            border-radius: 6px;
+            max-width: 250px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            box-shadow: 0 4px 12px rgba(31, 58, 61, 0.15);
+            -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+        }
+
+        .tool-card h3 {
+            color: #1F3A3D;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .tool-card button {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 12px;
+            background: #4CAF50;
+            min-width: auto;
+        }
+
+        .tool-card button:hover {
+            background: #45a049;
+        }
+
+        .tool-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            -webkit-animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.3s ease-in;
+            overflow-y: auto;
+        }
+
+        .tool-modal.active {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .tool-modal-content {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .tool-modal-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1F3A3D;
+            margin-bottom: 20px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .close-tool-modal {
+            font-size: 28px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            min-width: auto;
+            min-height: auto;
+        }
+
+        .close-tool-modal:hover {
+            color: #333;
+            background: none;
+        }
+
+        .tool-instructions {
+            margin: 20px 0;
+        }
+
+        .tool-instructions ol,
+        .tool-instructions ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .tool-instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .tool-instructions strong {
+            color: #1F3A3D;
+        }
+
+        .tool-tip {
+            background: #f0f8f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .tool-tip strong {
+            color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .tool-card {
+                max-width: 100%;
+            }
+
+            .tool-modal-content {
+                padding: 30px 20px;
+                max-width: 95%;
+            }
+
+            .tool-modal-header {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="font-size: 12px; margin-bottom: 10px; opacity: 0.95; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Practical Clinician™</div>
+            <h1>Anxiety Flowchart</h1>
+            <p>Select your responses to begin</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <button id="toolsToggle" class="tools-toggle-btn" onclick="toggleTools()">📋 FREE Coping Tools</button>
+        </div>
+
+        
+        <!-- Coping Tools Panel -->
+        <div class="tools-panel" id="toolsPanel">
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>🌬️ 4-7-8 Breathing</h3>
+                    <p>Calming breathwork technique for nervous system regulation</p>
+                    <button onclick="openToolModal('breathing')">Learn More</button>
+                </div>
+                <div class="tool-card">
+                    <h3>👁️ 5-4-3-2-1 Grounding</h3>
+                    <p>Sensory grounding to bring you back to the present moment</p>
+                    <button onclick="openToolModal('grounding')">Learn More</button>
+                </div>
+                <div class="tool-card">
+                    <h3>❄️ TIPP Skill</h3>
+                    <p>Temperature, Intense exercise, Paced breathing, Pair muscle relaxation</p>
+                    <button onclick="openToolModal('tipp')">Learn More</button>
+                </div>
+                <div class="tool-card">
+                    <h3>✨ ACCEPTS Skill</h3>
+                    <p>Distraction techniques using Activities, Contributions, Comparisons, and more</p>
+                    <button onclick="openToolModal('accepts')">Learn More</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Modals -->
+        <div id="breathingModal" class="tool-modal">
+            <div class="tool-modal-content">
+                <div class="tool-modal-header">
+                    <span>🌬️ 4-7-8 Breathing</span>
+                    <button class="close-tool-modal" onclick="closeToolModal('breathing')">&times;</button>
+                </div>
+                <p><strong>This technique activates your parasympathetic nervous system, signaling safety to your body.</strong></p>
+                <div class="tool-instructions">
+                    <ol>
+                        <li><strong>Exhale completely</strong> through your mouth with a whoosh sound</li>
+                        <li><strong>Close your mouth</strong> and inhale through your nose for a count of 4</li>
+                        <li><strong>Hold your breath</strong> for a count of 7</li>
+                        <li><strong>Exhale completely</strong> through your mouth for a count of 8</li>
+                        <li><strong>Repeat</strong> this cycle 3-4 times (one breath per minute)</li>
+                    </ol>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Tip:</strong> The exhale is more important than the inhale. Focus on making your exhale longer and complete. You can adjust the counts (3-5-6 or 2-4-6) if the timing feels too long.
+                </div>
+                <p><strong>Best for:</strong> Panic attacks, racing thoughts, bedtime anxiety, moments when you need quick regulation</p>
+            </div>
+        </div>
+
+        <div id="groundingModal" class="tool-modal">
+            <div class="tool-modal-content">
+                <div class="tool-modal-header">
+                    <span>👁️ 5-4-3-2-1 Grounding</span>
+                    <button class="close-tool-modal" onclick="closeToolModal('grounding')">&times;</button>
+                </div>
+                <p><strong>This sensory technique anchors you in the present moment, interrupting anxious thoughts about the future.</strong></p>
+                <div class="tool-instructions">
+                    <p><strong>Name:</strong></p>
+                    <ol>
+                        <li><strong>5 things you see:</strong> Look around and name 5 specific things (e.g., "blue chair," "shadow on wall")</li>
+                        <li><strong>4 things you feel:</strong> Notice texture and temperature (e.g., "feet on floor," "fabric on skin")</li>
+                        <li><strong>3 things you hear:</strong> Listen for sounds around you (e.g., "traffic," "birds," "fan humming")</li>
+                        <li><strong>2 things you smell:</strong> Notice scents (can light a candle or go outside if needed)</li>
+                        <li><strong>1 thing you taste:</strong> Put something in your mouth (gum, candy, water, mint)</li>
+                    </ol>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Tip:</strong> Go slowly through each sense. The detailed observation is what makes this effective—not speed. If you can't smell or taste easily, you can add a second thing you hear or feel instead.
+                </div>
+                <p><strong>Best for:</strong> Dissociation, racing thoughts, when you feel "stuck in your head," intrusive thoughts</p>
+            </div>
+        </div>
+
+        <div id="tippModal" class="tool-modal">
+            <div class="tool-modal-content">
+                <div class="tool-modal-header">
+                    <span>❄️ TIPP Skill</span>
+                    <button class="close-tool-modal" onclick="closeToolModal('tipp')">&times;</button>
+                </div>
+                <p><strong>TIPP is designed to quickly interrupt intense emotional reactions by activating the body's survival reflexes.</strong></p>
+                <div class="tool-instructions">
+                    <p><strong>TIPP stands for:</strong></p>
+                    <p><strong>T - Temperature (Most Effective):</strong></p>
+                    <ul>
+                        <li>Splash very cold water on your face or hold ice cubes on your cheeks</li>
+                        <li>Or: Submerge your face in cold water for 30 seconds (activates "dive response")</li>
+                        <li>Triggers an immediate calm-down reflex in your nervous system</li>
+                    </ul>
+                    <p><strong>I - Intense Exercise:</strong></p>
+                    <ul>
+                        <li>Do 2-3 minutes of vigorous exercise: running, jumping jacks, sprinting up stairs</li>
+                        <li>Discharges the adrenaline built up by anxiety</li>
+                        <li>Best when you have 5-10 minutes and space to move</li>
+                    </ul>
+                    <p><strong>P - Paced Breathing:</strong></p>
+                    <ul>
+                        <li>Slow, controlled breathing at about 5-6 breaths per minute</li>
+                        <li>Inhale for 4 counts, exhale for 6 counts</li>
+                        <li>Tells your nervous system to shift out of threat mode</li>
+                    </ul>
+                    <p><strong>P - Pair Muscle Relaxation:</strong></p>
+                    <ul>
+                        <li>Tense each muscle group for 5 seconds, then release (progressive muscle relaxation)</li>
+                        <li>Start with feet and work up to head</li>
+                        <li>Creates awareness of body and discharge of tension</li>
+                    </ul>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Tip:</strong> Temperature (especially ice water on face or cold water immersion) is the fastest and most effective part. Try this first when you're in crisis or high distress.
+                </div>
+                <p><strong>Best for:</strong> Intense panic, emotional flooding, suicidal urges, moments when you need immediate rapid relief</p>
+            </div>
+        </div>
+
+        <div id="acceptsModal" class="tool-modal">
+            <div class="tool-modal-content">
+                <div class="tool-modal-header">
+                    <span>✨ ACCEPTS Skill</span>
+                    <button class="close-tool-modal" onclick="closeToolModal('accepts')">&times;</button>
+                </div>
+                <p><strong>ACCEPTS is a distraction skill that redirects your attention to meaningful activities and social connection.</strong></p>
+                <div class="tool-instructions">
+                    <p><strong>ACCEPTS stands for:</strong></p>
+                    <p><strong>A - Activities:</strong></p>
+                    <ul>
+                        <li>Engage in activities that require mental focus: puzzles, games, crafts, reading</li>
+                        <li>Physical activities: exercise, dance, sports, gardening</li>
+                        <li>Creative: drawing, writing, music, cooking</li>
+                    </ul>
+                    <p><strong>C - Contributions (Helping Others):</strong></p>
+                    <ul>
+                        <li>Volunteer, help a friend, do an act of service</li>
+                        <li>Clean your space, organize something, help someone solve a problem</li>
+                        <li>Shifting focus to others' needs can ease self-focused anxiety</li>
+                    </ul>
+                    <p><strong>C - Comparisons:</strong></p>
+                    <ul>
+                        <li>Notice others around you experiencing normal life</li>
+                        <li>Watch a movie or show (neutral or light-hearted, not triggering)</li>
+                        <li>Remember: "Others feel anxiety too. I'm not alone in this."</li>
+                    </ul>
+                    <p><strong>E - Emotions (Opposite Action):</strong></p>
+                    <ul>
+                        <li>Do something that produces a different emotion</li>
+                        <li>Listen to uplifting music, watch something funny, be around people you enjoy</li>
+                    </ul>
+                    <p><strong>P - Pushing Away (Mental Distraction):</strong></p>
+                    <ul>
+                        <li>Actively push thoughts aside: "I'll think about this later"</li>
+                        <li>Use imagery: imagine putting worries in a box, closing it, setting it aside</li>
+                        <li>Return focus to present task</li>
+                    </ul>
+                    <p><strong>T - Thoughts (Thought Replacement):</strong></p>
+                    <ul>
+                        <li>Redirect thoughts to something neutral or pleasant</li>
+                        <li>Count backwards from 100 by 7s (requires focus)</li>
+                        <li>Mentally list categories (animals, capitals, songs)</li>
+                    </ul>
+                    <p><strong>S - Sensations (Sensory Focus):</strong></p>
+                    <ul>
+                        <li>Engage your senses: taste something strong (lemon, ginger), hold ice, listen to music</li>
+                        <li>Take a cold shower, splash water on your face</li>
+                        <li>Redirect attention to physical sensations</li>
+                    </ul>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Tip:</strong> Pick 2-3 ACCEPTS strategies that work for you and keep them ready. Having a "go-to" list makes it easier to use when anxiety is high. This works best for moderate anxiety (not peak panic—use TIPP for that).
+                </div>
+                <p><strong>Best for:</strong> Moderate anxiety, rumination, when you need longer-term coping (15 min +), keeping your mind occupied</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- START NODE -->
+            <div class="flowchart-node active" id="start">
+                <div class="node-box start">
+                    <div class="node-title">🚀 Anxiety Has Activated</div>
+                    <div class="node-description">Right now, your body is in fight-or-flight mode. Your heart may be racing, your breathing shallow, your thoughts spinning. This is your nervous system's alarm going off. Here's the critical part: <strong>what you do in the next 5 minutes will either calm you down or make this worse.</strong> You have two main paths. Choose one.</div>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('payAttention')">Acknowledge & Observe</button>
+                    <button onclick="selectOption('ignore')">Suppress or Avoid</button>
+                </div>
+                <div class="controls">
+                    <button id="backBtn" class="back-btn" onclick="goBack()" style="display: none;">← Back</button>
+                </div>
+            </div>
+
+            <!-- PAY ATTENTION PATH -->
+            <div class="flowchart-node" id="payAttention">
+                <div class="node-box">
+                    <div class="node-title">👁️ Observe Without Judgment</div>
+                    <div class="node-description">You're choosing awareness over denial. This is your first step toward skillful regulation. Don't try to change anything yet. Just notice: <strong>Where do you feel anxiety in your body? (Chest, stomach, throat?) What's the thought pattern? (Catastrophizing? Mind reading?) What emotion is present?</strong> Observation is already helpful. Your brain starts to calm when it realizes you're not running from the experience.</div>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('beKind')">Respond with Compassion</button>
+                    <button onclick="selectOption('beMean')">Respond with Judgment</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <!-- BE KIND PATH -->
+            <div class="flowchart-node" id="beKind">
+                <div class="node-box outcome">
+                    <div class="node-title">💚 Self-Compassionate Response</div>
+                    <div class="node-description">You're treating your anxious self with the same kindness you'd offer a trusted friend. This isn't denial or toxic positivity. This is acknowledging "I'm struggling right now, and I'm going to help myself through it." This pathway activates your parasympathetic nervous system—the system that calms you down.</div>
+                </div>
+                <div class="outcome-box">
+                    <h3>✓ What Self-Compassion Looks Like:</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Internal dialogue example:</strong> "I'm having a panic attack. This is scary, but it's not dangerous. My body is trying to protect me. I've survived anxiety before, and I'll get through this."</li>
+                        <li><strong>Physical gesture:</strong> Put your hand on your heart, take a breath, and literally comfort yourself like you would comfort a child</li>
+                        <li><strong>Self-talk script:</strong> "This is hard right now. It's okay to struggle. I'm doing the best I can. I deserve kindness, especially from myself."</li>
+                    </ul>
+                </div>
+                <div class="outcome-box">
+                    <h3>✓ Regulation Techniques to Try:</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Rhythmic Breathing:</strong> Slow, intentional breathing at 5-6 breaths per minute (inhale for 4, exhale for 6)—this tells your nervous system "we're safe"</li>
+                        <li><strong>Somatic Grounding:</strong> 5-4-3-2-1 technique: notice 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste (brings you back to present)</li>
+                        <li><strong>Internal Validation:</strong> "This feeling is real and valid. My nervous system is doing what it's designed to do. I'm not broken."</li>
+                        <li><strong>Gentle Movement:</strong> Stretching, slow walking, or progressive muscle relaxation to discharge the physical activation</li>
+                        <li><strong>Self-Soothing Touch:</strong> Warm beverage in your hands, soft blanket, holding a pillow, ice on your face—anything tactile that feels comforting</li>
+                        <li><strong>Environment:</strong> If safe, change your location (go outside, change rooms, change position). Sometimes a physical shift helps the nervous system shift.</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('afterKind')">Continue</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="afterKind">
+                <div class="node-box outcome">
+                    <div class="node-title">🎯 The Recovery Arc - What to Expect</div>
+                    <div class="node-description">When you respond to anxiety with compassion instead of resistance, something shifts neurologically. Your nervous system gets a "safety signal." Anxiety may continue to rise briefly—this is normal and doesn't mean you're doing it wrong.</div>
+                </div>
+                <div class="outcome-box">
+                    <h3>The Timeline (What Actually Happens):</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Minutes 0-5:</strong> You notice anxiety and choose to acknowledge it. Activation might still increase—your nervous system hasn't "heard" the signal yet.</li>
+                        <li><strong>Minutes 5-15:</strong> Anxiety peaks. This is the hardest part. Your job: keep using the technique, keep breathing, keep the compassionate self-talk. Don't add judgment. Don't try to rush.</li>
+                        <li><strong>Minutes 15-30:</strong> Peak starts to decline. You'll feel it—a slight ease in your chest, slower thoughts, calmer breathing. This is your nervous system responding.</li>
+                        <li><strong>Minutes 30-45:</strong> Significant decline. You're on the back side of the wave now. The worst is over. Most people feel 40-50% better.</li>
+                        <li><strong>After 60 minutes:</strong> Substantial relief. Anxiety isn't gone, but it's manageable and your thoughts are clearer.</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #4CAF50; background: #f0f8f0;">
+                    <h3>Why This Matters:</h3>
+                    <ul class="strategy-list">
+                        <li><strong>You survive it.</strong> Every time you get through an anxiety episode without avoidance, you prove to your nervous system "I can handle this." That proof accumulates.</li>
+                        <li><strong>Your brain learns.</strong> With repetition (usually 20-30 episodes of practicing this), your nervous system develops confidence. Next time is easier.</li>
+                        <li><strong>Avoidance teaches the opposite.</strong> If you escape or avoid during anxiety, your nervous system learns "anxiety is dangerous"—which makes anxiety grow. So this pathway might feel harder short-term, but it's the only path that actually reduces anxiety long-term.</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('recovery')">I'm Ready to Move Forward</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <!-- BE MEAN PATH -->
+            <div class="flowchart-node" id="beMean">
+                <div class="node-box warning">
+                    <div class="node-title">⚠️ Self-Critical Pathway (The Hard Way)</div>
+                    <div class="node-description">When anxiety appears and you respond with self-judgment, shame, or harsh internal dialogue, you create a two-layer problem. Example: "I'm having a panic attack" + "I'm so weak for panicking" = doubled distress. Your nervous system is now trying to manage both the anxiety AND the shame.</div>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">What This Looks Like (Real Examples):</h3>
+                    <ul class="strategy-list">
+                        <li>"I'm anxious" → "I should be able to handle this by now. Something's wrong with me. Why can't I get it together like everyone else?"</li>
+                        <li>"My heart is racing" → "I'm having a heart attack. I'm broken. This is never going to end."</li>
+                        <li>"I feel uncomfortable" → "I'm pathetic. Normal people don't panic. I'm going crazy."</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">The Compound Effect:</h3>
+                    <ul class="strategy-list">
+                        <li>Your nervous system receives TWO threat signals: (1) the anxiety, and (2) the self-criticism</li>
+                        <li>Recovery time doubles or triples because you're fighting two battles</li>
+                        <li>You reinforce the belief "Anxiety means something is wrong with me" instead of "Anxiety is a normal human experience"</li>
+                        <li>Over time, shame becomes as big a problem as the anxiety itself</li>
+                        <li><strong>Critical note: This is NOT a failure—it's a common pattern. Many people do this automatically. The good news? You can change it.</strong></li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('switchToKind')">Shift to Compassion</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="switchToKind">
+                <div class="node-box">
+                    <div class="node-title">🔄 You Can Redirect This Right Now</div>
+                    <div class="node-description">The fact that you notice you're being self-critical is already progress. That awareness is the moment of choice. You can interrupt the pattern right now. Awareness is the first step to change.</div>
+                </div>
+                <div class="outcome-box">
+                    <h3>How to Actually Redirect (Concrete Steps):</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Step 1 - Name it:</strong> "Right now, I'm having anxiety AND I'm being critical about having anxiety. That's two problems, not one."</li>
+                        <li><strong>Step 2 - Pause the self-talk:</strong> Actually say (out loud if safe): "Stop. I don't deserve criticism. I'm struggling, and that's human."</li>
+                        <li><strong>Step 3 - Physical comfort:</strong> Put your hand on your heart or hug yourself. This activates your nervous system's calm response.</li>
+                        <li><strong>Step 4 - Reframe:</strong> "Having anxiety doesn't define me. It's a temporary state my body is creating. I've survived difficult feelings before."</li>
+                        <li><strong>Step 5 - Use one technique:</strong> Pick ONE from the compassionate pathway (breathing, grounding, movement, comfort object)</li>
+                    </ul>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Real-life example:</strong> "I'm panicking about this meeting" + harsh self-talk → "I'm panicking AND I'm being mean to myself. Let me stop. I'm doing my best. Let me breathe for 4 minutes and see if this passes."
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('recovery')">Move Forward</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <!-- IGNORE PATH -->
+            <div class="flowchart-node" id="ignore">
+                <div class="node-box warning">
+                    <div class="node-title">🚫 Avoidance Strategy (The Trap)</div>
+                    <div class="node-description">You're choosing to suppress, deny, or escape the anxiety. This provides immediate relief—which is exactly why it's so seductive. But it's also why avoidance becomes a trap over time.</div>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">Real Examples of Avoidance:</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Mental:</strong> Dissociation, "zoning out," not thinking about the problem</li>
+                        <li><strong>Substances:</strong> Alcohol, drugs, overeating, excessive sleeping to escape</li>
+                        <li><strong>Behavioral:</strong> Calling in sick to work, canceling plans, staying home</li>
+                        <li><strong>Distraction:</strong> Endless scrolling, binge-watching, extreme busyness to not feel</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">The Avoidance Cycle (How It Grows):</h3>
+                    <ul class="strategy-list">
+                        <li><strong>Day 1:</strong> Feel anxious about presentation → Don't go to work → Feel relief</li>
+                        <li><strong>Day 3-5:</strong> Anxiety about the rescheduled presentation builds → Avoid again → Relief again</li>
+                        <li><strong>Week 2:</strong> Now anxious about "the situation" + "being seen as unreliable" → Avoid more situations</li>
+                        <li><strong>Month 1:</strong> Started with 1 feared situation. Now avoiding work, phone calls, leaving house → Shame increases</li>
+                        <li><strong>Month 3:</strong> Life has shrunk significantly. Anxiety paradoxically increased because brain learned "these things ARE dangerous"</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">Why Avoidance Backfires (The Neuroscience):</h3>
+                    <ul class="strategy-list">
+                        <li>When you avoid, your nervous system learns: "That thing is dangerous. My body was right to be afraid."</li>
+                        <li>Each avoidance strengthens the fear. Your brain files it as "threat confirmed."</li>
+                        <li>The only way your nervous system learns "it's actually safe" is through repeated exposure (staying in the situation) without disaster.</li>
+                        <li>This is why avoidance fixes things for 5 minutes but breaks them for months.</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('payAttention')">Try Acknowledging Instead</button>
+                    <button onclick="selectOption('specificIgnore')">Explore Avoidance Methods</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="specificIgnore">
+                <div class="node-box warning">
+                    <div class="node-title">🎭 Types of Avoidance</div>
+                    <div class="node-description">There are different ways people escape or suppress anxiety. Which approach do you typically use?</div>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('dissociate')">Mental Withdrawal/Numbing</button>
+                    <button onclick="selectOption('distract')">Engaging Distraction</button>
+                    <button onclick="selectOption('avoid')">Situation Avoidance</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="dissociate">
+                <div class="node-box warning">
+                    <div class="node-title">💤 Dissociation & Emotional Numbing</div>
+                    <div class="node-description">Checking out mentally, detaching from your body, or using substances to not feel. It's very effective at creating immediate relief—and that's exactly why it can become a primary coping pattern that actually makes things worse.</div>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800;">
+                    <h3 style="color: #FF9800;">What Dissociation Looks Like (Real Examples):</h3>
+                    <ul class="strategy-list">
+                        <li>Feeling "outside your body" or watching yourself from afar</li>
+                        <li>Emotional numbness—feeling like you don't care about anything</li>
+                        <li>"Zoning out" for hours without awareness of time passing</li>
+                        <li>Memory gaps—not remembering what happened during anxiety episodes</li>
+                        <li>Robotic autopilot movements (driving, talking) without conscious awareness</li>
+                        <li>Using alcohol, drugs, or sleep to escape into unconsciousness</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800;">
+                    <h3 style="color: #FF9800;">Why This Becomes a Problem:</h3>
+                    <ul class="strategy-list">
+                        <li>Creates a disconnect between you and your actual experience</li>
+                        <li>Over time, dissociation episodes tend to intensify or occur more frequently</li>
+                        <li>Prevents your nervous system from learning that anxiety is survivable—you never actually experience yourself surviving it</li>
+                        <li>Can lead to substance dependence if using drugs/alcohol as dissociation tools</li>
+                        <li>May result in self-harm you don't remember or injuries sustained without noticing</li>
+                    </ul>
+                </div>
+                <div style="background: #ffe8e8; border-left: 4px solid #d32f2f; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 13px; color: #333;">
+                        <strong style="color: #d32f2f;">⚠️ When to Seek Professional Help:</strong> If dissociation is happening frequently, involuntarily, or lasting for hours, this is not something to manage alone. Please reach out to a therapist or psychiatrist who specializes in trauma/dissociation. This is treatable, but it needs professional support. Types of effective therapy: EMDR, trauma-focused CBT, DBT.
+                    </p>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('recovery')">Learn Grounded Coping</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="distract">
+                <div class="node-box">
+                    <div class="node-title">🎮 Redirecting Attention</div>
+                    <div class="node-description">Shifting your mental focus to something genuinely engaging. This is more strategic than suppression—you're consciously choosing a different channel rather than forcing the anxiety away. But only use this for LOW anxiety, not panic.</div>
+                </div>
+                <div class="outcome-box">
+                    <h3>✓ Good Distractions (Engage Your Brain):</h3>
+                    <ul class="strategy-list">
+                        <li>Puzzle games, crosswords, sudoku (requires focus)</li>
+                        <li>Creative activities: drawing, painting, crafts, music, writing</li>
+                        <li>Physical activities: exercise, yoga, dancing, playing sports</li>
+                        <li>Social engagement: phone call with a friend, online game with others, group activity</li>
+                        <li>Learning: podcast about something interesting, educational video, book</li>
+                    </ul>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
+                    <h3 style="color: #FF9800;">❌ Poor Distractions (Passive/Avoidant):</h3>
+                    <ul class="strategy-list">
+                        <li>Mindless scrolling (doesn't actually engage your brain)</li>
+                        <li>Passive TV watching (too easy to slip back into anxiety thoughts)</li>
+                        <li>Sleeping excessively (avoidance, not distraction)</li>
+                        <li>Substance use to numb (this is dissociation, not distraction)</li>
+                    </ul>
+                </div>
+                <div class="tool-tip">
+                    <strong>💡 Key Rule:</strong> Only use distraction for low-to-moderate anxiety. If anxiety is high or you're panicking, distraction won't work—you need one of the other tools (breathing, TIPP, grounding). Use distraction strategically, not as your main coping tool.
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('recovery')">Integrate & Recover</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <div class="flowchart-node" id="avoid">
+                <div class="node-box warning">
+                    <div class="node-title">🚪 Situation/Context Avoidance</div>
+                    <div class="node-description">Staying away from the place, person, or circumstance triggering anxiety. This provides quick relief—which is exactly what makes it a difficult pattern to break.</div>
+                </div>
+                <div class="outcome-box" style="border-left-color: #FF9800;">
+                    <h3 style="color: #FF9800;">How the Avoidance Cycle Develops:</h3>
+                    <ul class="strategy-list">
+                        <li><strong>First avoidance:</strong> You escape the situation → relief → your brain marks this as successful</li>
+                        <li><strong>Reinforcement:</strong> Next time, avoidance feels like the obvious choice</li>
+                        <li><strong>Expansion:</strong> Related situations also start feeling unsafe, so you avoid those too</li>
+                        <li><strong>Result:</strong> Your accessible world gradually shrinks, anxiety grows stronger</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button onclick="selectOption('recovery')">Break the Pattern</button>
+                </div>
+                <div class="controls">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                </div>
+            </div>
+
+            <!-- RECOVERY NODE -->
+            <div class="flowchart-node" id="recovery">
+                <div class="node-box outcome">
+                    <div class="node-title">🌟 You Now Have a Map</div>
+                    <div class="node-description">You've just learned that anxiety is not random—it follows patterns, and you can influence which pattern unfolds. Every time you use this flowchart or practice one of these skills, you're building new neural pathways. Your brain is getting stronger and more flexible.</div>
+                </div>
+                <div class="outcome-box">
+                    <h3>Key Takeaways - What This Means for You:</h3>
+                    <ul class="strategy-list">
+                        <li>
+                            <strong>Anxiety is Not Your Enemy:</strong> Your nervous system evolved to protect you from danger. Anxiety is the alarm system doing its job—sometimes too efficiently. It's not broken; it's overprotective. This is fixable.
+                        </li>
+                        <li>
+                            <strong>The Choice Point is Everything:</strong> You now know the four main paths anxiety can take: acknowledge & be kind, acknowledge & be harsh, suppress/ignore, or seek connection. Each path has different outcomes. The good news? You get to choose which path in the moment. That choice is where your power lies.
+                        </li>
+                        <li>
+                            <strong>Self-Compassion Actually Works:</strong> When you treat your anxious self with kindness instead of criticism, your nervous system receives a "safety signal." This isn't soft or weak—it's neuroscience. Compassion activates your parasympathetic nervous system, which is the only system that can truly calm you down. Self-criticism activates more threat, which keeps you stuck.
+                        </li>
+                        <li>
+                            <strong>Avoidance Always Backfires (Eventually):</strong> Avoiding anxiety feels good for 5 minutes. But each time you avoid, your brain learns "that thing is dangerous"—even if it isn't. The more you avoid, the more things become "off limits." Your life slowly shrinks. The only way out is through (with support).
+                        </li>
+                        <li>
+                            <strong>You Can Learn New Patterns:</strong> Your current anxiety responses are habits. Habits can be changed with practice. Each time you choose a different path, you're rewiring your brain. It won't be perfect at first—that's normal. With repetition (usually 20-30 times), new responses become automatic.
+                        </li>
+                        <li>
+                            <strong>Your Anxiety Has a Timeline:</strong> Anxiety naturally peaks and then decreases. If you don't add resistance or avoidance, most anxiety episodes resolve in 20-40 minutes. Knowing this? You can tolerate almost anything for 20-40 minutes.
+                        </li>
+                        <li>
+                            <strong>Professional Help Isn't Optional If This Is Severe:</strong> If anxiety is keeping you from work, relationships, or daily life, trying to manage it alone will take longer and be harder. A therapist can: accelerate your progress, identify your specific anxiety triggers, teach you personalized skills, and help you break avoidance patterns. This is like hiring a coach—it changes everything. Types of effective therapy: CBT (Cognitive Behavioral Therapy), ACT (Acceptance & Commitment Therapy), and EMDR.
+                        </li>
+                        <li>
+                            <strong>This Flowchart is Your Map, Not Your Destination:</strong> The goal isn't to never feel anxious. The goal is to feel anxious and still do your life. Over time, as you practice these skills, anxiety will naturally decrease because your nervous system learns it's safe—but that learning happens through repeated practice in real situations.
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="background: #fffaf0; border-left: 4px solid #FF9800; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 13px; color: #333;">
+                        <strong style="color: #FF9800;">⚡ Next Steps:</strong> Pick ONE strategy from this flowchart and practice it this week. Don't try to do everything at once. Master one technique, then add another. Small consistent practice beats occasional big efforts.
+                    </p>
+                </div>
+                <div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 12px; color: #666;">
+                    <p><strong>Practical Clinician™</strong> — Evidence-based tools for mental health.</p>
+                </div>
+                <div class="button-group">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                    <button class="restart-btn" onclick="restart()">Start Over</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="footer">
+            <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #ddd;">
+                <strong style="color: #1F3A3D;">⚠️ Important Disclaimers & Usage Rights</strong>
+                <div style="margin-top: 8px; font-size: 12px; line-height: 1.6; text-align: left;">
+                    <p style="margin-bottom: 8px;"><strong>Psychoeducational Use Only:</strong> This tool is designed for educational and self-awareness purposes only. It does not constitute professional medical, psychological, or psychiatric advice.</p>
+                    <p style="margin-bottom: 8px;"><strong>Not a Replacement for Treatment:</strong> This resource is not a substitute for therapy, counseling, medication, or professional mental health treatment. If you are experiencing significant anxiety, depression, or mental health concerns, please seek professional help.</p>
+                    <p style="margin-bottom: 8px;"><strong>Crisis Support:</strong> If you are in crisis or experiencing suicidal thoughts, please contact emergency services (911) or a crisis helpline immediately (e.g., 988 Suicide & Crisis Lifeline in the US).</p>
+                    <p style="margin-bottom: 8px;"><strong>Individual Variation:</strong> Everyone's anxiety presents differently. What works for one person may not work for another. Use this tool as part of a comprehensive approach to mental health.</p>
+                    <p style="margin-bottom: 8px;"><strong>Usage Rights:</strong> This material is provided for use in clinical sessions and personal mental health support. You may share this tool with clients, students, and colleagues for non-commercial educational purposes only. You must provide clear attribution to Practical Clinician™. <strong>You may not resell, rebrand, or claim this content as your own.</strong> Modifications require attribution to both Practical Clinician™ and the original creator.</p>
+                </div>
+            </div>
+            <div style="font-size: 11px; color: #999;">
+                © Practical Clinician™. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        let stepCount = 0;
+        const totalSteps = 8;
+        let nodeHistory = ['start'];
+
+        // Polyfill for older browsers
+        if (!Element.prototype.closest) {
+            Element.prototype.closest = function(s) {
+                var el = this;
+                if (!document.documentElement.contains(el)) return null;
+                do {
+                    if (el.matches(s)) return el;
+                    el = el.parentElement || el.parentNode;
+                } while (el !== null && el.nodeType === 1);
+                return null;
+            };
+        }
+
+        // Polyfill for forEach on NodeList
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = function (callback, thisArg) {
+                thisArg = thisArg || window;
+                for (var i = 0; i < this.length; i++) {
+                    callback.call(thisArg, this[i], i, this);
+                }
+            };
+        }
+
+
+        function toggleTools() {
+            try {
+                var toolsPanel = document.getElementById('toolsPanel');
+                if (toolsPanel) {
+                    toolsPanel.classList.toggle('active');
+                }
+            } catch (error) {
+                console.error('Error in toggleTools:', error);
+            }
+        }
+
+        function openToolModal(toolName) {
+            try {
+                var modalId = toolName + 'Modal';
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            } catch (error) {
+                console.error('Error in openToolModal:', error);
+            }
+        }
+
+        function closeToolModal(toolName) {
+            try {
+                var modalId = toolName + 'Modal';
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            } catch (error) {
+                console.error('Error in closeToolModal:', error);
+            }
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            try {
+                if (event.target && event.target.classList && event.target.classList.contains('tool-modal')) {
+                    event.target.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            } catch (error) {
+                console.error('Error in window.onclick:', error);
+            }
+        };
+
+        function selectOption(nodeId) {
+            try {
+                // Validate nodeId
+                if (!nodeId || typeof nodeId !== 'string') {
+                    console.error('Invalid node ID:', nodeId);
+                    return;
+                }
+
+                // Hide all nodes
+                var nodes = document.querySelectorAll('.flowchart-node');
+                if (nodes && nodes.length > 0) {
+                    nodes.forEach(function(node) {
+                        node.classList.remove('active');
+                    });
+                }
+
+                // Show selected node
+                var selectedNode = document.getElementById(nodeId);
+                if (selectedNode) {
+                    selectedNode.classList.add('active');
+                } else {
+                    console.error('Node not found:', nodeId);
+                    return;
+                }
+
+                // Add to history
+                nodeHistory.push(nodeId);
+                updateBackButton();
+
+                stepCount++;
+                updateProgress();
+
+                // Scroll to top
+                if (window.scrollTo) {
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (e) {
+                        // Fallback for older browsers
+                        window.scrollTo(0, 0);
+                    }
+                }
+            } catch (error) {
+                console.error('Error in selectOption:', error);
+            }
+        }
+
+        function goBack() {
+            try {
+                if (nodeHistory.length > 1) {
+                    nodeHistory.pop();
+                    var previousNodeId = nodeHistory[nodeHistory.length - 1];
+
+                    // Hide all nodes
+                    var nodes = document.querySelectorAll('.flowchart-node');
+                    if (nodes && nodes.length > 0) {
+                        nodes.forEach(function(node) {
+                            node.classList.remove('active');
+                        });
+                    }
+
+                    // Show previous node
+                    var previousNode = document.getElementById(previousNodeId);
+                    if (previousNode) {
+                        previousNode.classList.add('active');
+                    }
+
+                    updateBackButton();
+                    stepCount = Math.max(0, stepCount - 1);
+                    updateProgress();
+
+                    // Scroll to top
+                    if (window.scrollTo) {
+                        try {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } catch (e) {
+                            window.scrollTo(0, 0);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error in goBack:', error);
+            }
+        }
+
+        function updateBackButton() {
+            try {
+                var backBtn = document.getElementById('backBtn');
+                if (backBtn) {
+                    if (nodeHistory.length > 1) {
+                        backBtn.style.display = 'inline-block';
+                    } else {
+                        backBtn.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error in updateBackButton:', error);
+            }
+        }
+
+        function updateProgress() {
+            try {
+                var progress = (stepCount / totalSteps) * 100;
+                var progressFill = document.getElementById('progressFill');
+                if (progressFill) {
+                    progressFill.style.width = progress + '%';
+                }
+            } catch (error) {
+                console.error('Error in updateProgress:', error);
+            }
+        }
+
+        function restart() {
+            try {
+                nodeHistory = ['start'];
+                stepCount = 0;
+
+                var nodes = document.querySelectorAll('.flowchart-node');
+                if (nodes && nodes.length > 0) {
+                    nodes.forEach(function(node) {
+                        node.classList.remove('active');
+                    });
+                }
+
+                var startNode = document.getElementById('start');
+                if (startNode) {
+                    startNode.classList.add('active');
+                }
+
+                var progressFill = document.getElementById('progressFill');
+                if (progressFill) {
+                    progressFill.style.width = '0%';
+                }
+
+                updateBackButton();
+
+                if (window.scrollTo) {
+                    try {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (e) {
+                        window.scrollTo(0, 0);
+                    }
+                }
+            } catch (error) {
+                console.error('Error in restart:', error);
+            }
+        }
+
+        // Initialize on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                try {
+                    updateProgress();
+                    updateBackButton();
+                } catch (error) {
+                    console.error('Error during initialization:', error);
+                }
+            });
+        } else {
+            try {
+                updateProgress();
+                updateBackButton();
+            } catch (error) {
+                console.error('Error during initialization:', error);
+            }
+        }
+    </script>
+</body>
+</html>
