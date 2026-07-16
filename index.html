@@ -30,8 +30,8 @@
             padding: 20px;
             display: -webkit-flex;
             display: flex;
-            -webkit-justify-content: center;
-            justify-content: center;
+            -webkit-flex-direction: column;
+            flex-direction: column;
             -webkit-align-items: center;
             align-items: center;
             -webkit-font-smoothing: antialiased;
@@ -477,6 +477,137 @@
             }
         }
 
+        /* Contact Footer Styling */
+        .contact-footer {
+            background: #1F3A3D !important;
+            color: white !important;
+            padding: 15px 20px !important;
+            text-align: center !important;
+            margin-top: 10px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: block !important;
+        }
+
+        .contact-footer h3 {
+            font-size: 18px !important;
+            margin-bottom: 20px !important;
+            color: white !important;
+            display: block !important;
+        }
+
+        .social-links {
+            display: -webkit-flex !important;
+            display: flex !important;
+            gap: 8px !important;
+            -webkit-justify-content: center !important;
+            justify-content: center !important;
+            margin-bottom: 0 !important;
+            -webkit-flex-wrap: wrap !important;
+            flex-wrap: wrap !important;
+        }
+
+        .social-links a {
+            color: white !important;
+            text-decoration: none !important;
+            font-size: 16px !important;
+            padding: 10px 16px !important;
+            border: 1px solid rgba(255,255,255,0.3) !important;
+            border-radius: 6px !important;
+            -webkit-transition: all 0.3s ease !important;
+            transition: all 0.3s ease !important;
+            display: -webkit-flex !important;
+            display: flex !important;
+            -webkit-align-items: center !important;
+            align-items: center !important;
+            -webkit-justify-content: center !important;
+            justify-content: center !important;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.1) !important;
+            border-color: white !important;
+        }
+
+        .email-signup {
+            background: rgba(255,255,255,0.1) !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            max-width: 500px !important;
+            margin: 0 auto !important;
+            color: white !important;
+        }
+
+        .email-signup p {
+            color: white !important;
+        }
+
+        .email-signup #mc_embed_signup {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .email-signup input[type="email"],
+        .email-signup input[type="text"] {
+            background: white !important;
+            color: #333 !important;
+            border: none !important;
+        }
+
+        .email-signup input[type="submit"] {
+            background: #4CAF50 !important;
+            color: white !important;
+            border: none !important;
+        }
+
+        .email-signup input[type="submit"]:hover {
+            background: #45a049 !important;
+        }
+
+        .email-signup input {
+            width: 100% !important;
+            padding: 12px !important;
+            margin-bottom: 10px !important;
+            border: none !important;
+            border-radius: 6px !important;
+            font-size: 14px !important;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            color: #333 !important;
+        }
+
+        .email-signup button {
+            width: 100% !important;
+            background: #4CAF50 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+        }
+
+        .email-signup button:hover {
+            background: #45a049 !important;
+        }
+
+        @media (max-width: 768px) {
+            .contact-footer {
+                padding: 30px 15px;
+            }
+
+            .social-links {
+                gap: 10px;
+            }
+
+            .social-links a {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+
 
         /* Coping Tools Styling */
         .tools-toggle-btn {
@@ -875,12 +1006,12 @@
             <!-- START NODE -->
             <div class="flowchart-node active" id="start">
                 <div class="node-box start">
-                    <div class="node-title">🚀 Experiencing Anxiety?</div>
-                    <div class="node-description">Right now, your body may be in fight-or-flight mode. Your heart might be racing, your breathing may feel shallow, and your thoughts may be spinning. That’s your nervous system sounding the alarm. Here's the critical part: <strong>what you do in the next few minutes can either help your nervous system settle or unintentionally keep the alarm going.</strong> Take a moment. Which path do you feel yourself leaning toward? </div>
+                    <div class="node-title">🌊 Experiencing Anxiety?</div>
+                    <div class="node-description">You might be experiencing a wave of physical sensations right now—racing heart, shallow breathing, thoughts moving quickly. This is what anxiety can feel like. In the coming moments, how you respond to this experience can make a difference. There are a couple of different paths you might explore. Whatever feels right for you.</div>
                 </div>
                 <div class="button-group">
-                    <button onclick="selectOption('payAttention')">I feel like Acknowledging & Observing</button>
-                    <button onclick="selectOption('ignore')">I feel like Suppressing or Avoiding</button>
+                    <button onclick="selectOption('payAttention')">I want to acknowledge & observe</button>
+                    <button onclick="selectOption('ignore')">I want to step away or numb it</button>
                 </div>
                 <div class="controls">
                     <button id="backBtn" class="back-btn" onclick="goBack()" style="display: none;">← Back</button>
@@ -891,11 +1022,11 @@
             <div class="flowchart-node" id="payAttention">
                 <div class="node-box">
                     <div class="node-title">👁️ Observe Without Judgment</div>
-                    <div class="node-description">You're choosing awareness over denial. This is your first step toward skillful regulation. Don't try to change anything yet. Just notice: <strong>Where do you feel anxiety in your body? (Chest, stomach, throat?) What's the thought pattern? (Catastrophizing? Mind reading?) What emotion is present?</strong> Observation is already helpful. Your brain starts to calm when it realizes you're not running from the experience.</div>
+                    <div class="node-description">You're turning toward what's happening instead of turning away. If it feels okay, try gently noticing: Where do you feel this in your body? What thoughts are coming up? What emotion is there? There's no need to change anything right now—sometimes just acknowledging what's present can feel like a small relief.</div>
                 </div>
                 <div class="button-group">
-                    <button onclick="selectOption('beKind')">Respond with Compassion</button>
-                    <button onclick="selectOption('beMean')">Respond with Judgment</button>
+                    <button onclick="selectOption('beKind')">I want to be gentle with myself</button>
+                    <button onclick="selectOption('beMean')">I find myself being critical</button>
                 </div>
                 <div class="controls">
                     <button class="back-btn" onclick="goBack()">← Back</button>
@@ -906,7 +1037,7 @@
             <div class="flowchart-node" id="beKind">
                 <div class="node-box outcome">
                     <div class="node-title">💚 Self-Compassionate Response</div>
-                    <div class="node-description">You're treating your anxious self with the same kindness you'd offer a trusted friend. This isn't denial or toxic positivity. This is acknowledging "I'm struggling right now, and I'm going to help myself through it." This pathway activates your parasympathetic nervous system—the system that calms you down.</div>
+                    <div class="node-description">You're offering yourself some gentleness in this moment. This might feel like a kind thought toward yourself, a hand on your heart, or even just allowing yourself to be okay with not being okay. This internal kindness can create a sense of safety in your nervous system.</div>
                 </div>
                 <div class="outcome-box">
                     <h3>✓ What Self-Compassion Looks Like:</h3>
@@ -938,24 +1069,24 @@
             <div class="flowchart-node" id="afterKind">
                 <div class="node-box outcome">
                     <div class="node-title">🎯 The Recovery Arc - What to Expect</div>
-                    <div class="node-description">When you respond to anxiety with compassion instead of resistance, something shifts neurologically. Your nervous system gets a "safety signal." Anxiety may continue to rise briefly—this is normal and doesn't mean you're doing it wrong.</div>
+                    <div class="node-description">When you respond to anxiety with gentleness instead of judgment, something can shift in your nervous system. You're offering yourself a safety signal. Anxiety might continue to feel intense for a bit—this is okay and doesn't mean anything is wrong.</div>
                 </div>
                 <div class="outcome-box">
-                    <h3>The Timeline (What Actually Happens):</h3>
+                    <h3>The Timeline (This Can Vary For Everyone):</h3>
                     <ul class="strategy-list">
-                        <li><strong>Minutes 0-5:</strong> You notice anxiety and choose to acknowledge it. Activation might still increase—your nervous system hasn't "heard" the signal yet.</li>
-                        <li><strong>Minutes 5-15:</strong> Anxiety peaks. This is the hardest part. Your job: keep using the technique, keep breathing, keep the compassionate self-talk. Don't add judgment. Don't try to rush.</li>
-                        <li><strong>Minutes 15-30:</strong> Peak starts to decline. You'll feel it—a slight ease in your chest, slower thoughts, calmer breathing. This is your nervous system responding.</li>
-                        <li><strong>Minutes 30-45:</strong> Significant decline. You're on the back side of the wave now. The worst is over. Most people feel 40-50% better.</li>
-                        <li><strong>After 60 minutes:</strong> Substantial relief. Anxiety isn't gone, but it's manageable and your thoughts are clearer.</li>
+                        <li><strong>Early on (0-5 min):</strong> You might notice anxiety as you turn toward it. It could feel intense at first—your body hasn't gotten the "it's okay" message yet.</li>
+                        <li><strong>Minutes 5-15 or so:</strong> Anxiety might peak. This can be the hardest part. If it helps, keep breathing gently, be kind to yourself, and remember this is temporary.</li>
+                        <li><strong>Around 15-30 minutes:</strong> For some people, it starts to ease. You might notice a slight softening—a little more calm in your breath, or your thoughts slowing down.</li>
+                        <li><strong>30+ minutes:</strong> You might feel some relief. Anxiety may still be there, but it often becomes more manageable.</li>
+                        <li><strong>Everyone is different:</strong> Your timeline might be faster, slower, or different altogether. That's completely okay.</li>
                     </ul>
                 </div>
                 <div class="outcome-box" style="border-left-color: #4CAF50; background: #f0f8f0;">
                     <h3>Why This Matters:</h3>
                     <ul class="strategy-list">
-                        <li><strong>You survive it.</strong> Every time you get through an anxiety episode without avoidance, you prove to your nervous system "I can handle this." That proof accumulates.</li>
-                        <li><strong>Your brain learns.</strong> With repetition (usually 20-30 episodes of practicing this), your nervous system develops confidence. Next time is easier.</li>
-                        <li><strong>Avoidance teaches the opposite.</strong> If you escape or avoid during anxiety, your nervous system learns "anxiety is dangerous"—which makes anxiety grow. So this pathway might feel harder short-term, but it's the only path that actually reduces anxiety long-term.</li>
+                        <li><strong>You get through it.</strong> Each time you move toward anxiety instead of away, you're showing your nervous system that you can be with difficult feelings. That experience can help over time.</li>
+                        <li><strong>Your nervous system can learn.</strong> With practice, anxiety can become less scary. It might take time and repetition, and that's normal.</li>
+                        <li><strong>Avoidance can go the other direction.</strong> When we run from anxiety, it often feels more threatening next time. Being with it is harder in the moment, but it can help long-term.</li>
                     </ul>
                 </div>
                 <div class="button-group">
@@ -970,7 +1101,7 @@
             <div class="flowchart-node" id="beMean">
                 <div class="node-box warning">
                     <div class="node-title">⚠️ Self-Critical Pathway (The Hard Way)</div>
-                    <div class="node-description">When anxiety appears and you respond with self-judgment, shame, or harsh internal dialogue, you create a two-layer problem. Example: "I'm having a panic attack" + "I'm so weak for panicking" = doubled distress. Your nervous system is now trying to manage both the anxiety AND the shame.</div>
+                    <div class="node-description">Sometimes when anxiety shows up, we also judge ourselves for having it. This creates an extra layer of difficulty. For example: feeling anxious PLUS feeling bad about being anxious. Your nervous system is working hard on two fronts.</div>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
                     <h3 style="color: #FF9800;">What This Looks Like (Real Examples):</h3>
@@ -981,13 +1112,12 @@
                     </ul>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
-                    <h3 style="color: #FF9800;">The Compound Effect:</h3>
+                    <h3 style="color: #FF9800;">What Happens When We Add Self-Judgment:</h3>
                     <ul class="strategy-list">
-                        <li>Your nervous system receives TWO threat signals: (1) the anxiety, and (2) the self-criticism</li>
-                        <li>Recovery time doubles or triples because you're fighting two battles</li>
-                        <li>You reinforce the belief "Anxiety means something is wrong with me" instead of "Anxiety is a normal human experience"</li>
-                        <li>Over time, shame becomes as big a problem as the anxiety itself</li>
-                        <li><strong>Critical note: This is NOT a failure—it's a common pattern. Many people do this automatically. The good news? You can change it.</strong></li>
+                        <li>You're managing anxiety PLUS a harsh voice. That's harder on your whole system.</li>
+                        <li>Recovery can take longer because there's more to work through</li>
+                        <li>You might start believing anxiety means something is fundamentally wrong with you (instead of just being a normal human experience)</li>
+                        <li>This pattern is very common. You're not alone in doing this. And it can change.</li>
                     </ul>
                 </div>
                 <div class="button-group">
@@ -1001,7 +1131,7 @@
             <div class="flowchart-node" id="switchToKind">
                 <div class="node-box">
                     <div class="node-title">🔄 You Can Redirect This Right Now</div>
-                    <div class="node-description">The fact that you notice you're being self-critical is already progress. That awareness is the moment of choice. You can interrupt the pattern right now. Awareness is the first step to change.</div>
+                    <div class="node-description">Noticing that you're being hard on yourself is already something. That awareness gives you a choice—you don't have to stay in that pattern. You can try something different.</div>
                 </div>
                 <div class="outcome-box">
                     <h3>How to Actually Redirect (Concrete Steps):</h3>
@@ -1028,7 +1158,7 @@
             <div class="flowchart-node" id="ignore">
                 <div class="node-box warning">
                     <div class="node-title">🚫 Avoidance Strategy (The Trap)</div>
-                    <div class="node-description">You're choosing to suppress, deny, or escape the anxiety. This provides immediate relief—which is exactly why it's so seductive. But it's also why avoidance becomes a trap over time.</div>
+                    <div class="node-description">You're looking for a way to step away from or numb the anxiety. This brings quick relief, which makes a lot of sense. Over time, though, avoidance can sometimes make anxiety bigger, even if it helps right now.</div>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
                     <h3 style="color: #FF9800;">Real Examples of Avoidance:</h3>
@@ -1040,22 +1170,21 @@
                     </ul>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
-                    <h3 style="color: #FF9800;">The Avoidance Cycle (How It Grows):</h3>
+                    <h3 style="color: #FF9800;">How Avoidance Can Grow Over Time:</h3>
                     <ul class="strategy-list">
-                        <li><strong>Day 1:</strong> Feel anxious about presentation → Don't go to work → Feel relief</li>
-                        <li><strong>Day 3-5:</strong> Anxiety about the rescheduled presentation builds → Avoid again → Relief again</li>
-                        <li><strong>Week 2:</strong> Now anxious about "the situation" + "being seen as unreliable" → Avoid more situations</li>
-                        <li><strong>Month 1:</strong> Started with 1 feared situation. Now avoiding work, phone calls, leaving house → Shame increases</li>
-                        <li><strong>Month 3:</strong> Life has shrunk significantly. Anxiety paradoxically increased because brain learned "these things ARE dangerous"</li>
+                        <li><strong>Day 1:</strong> Anxious about something → Step back from it → Relief (which feels good)</li>
+                        <li><strong>Days 3-5:</strong> Anxiety builds again → Avoid again → Relief again</li>
+                        <li><strong>Week 2+:</strong> It might become easier to keep avoiding because you know it works. But anxiety might also show up in new situations</li>
+                        <li><strong>Over time:</strong> What started as one feared situation can slowly grow. Your world might get smaller, and anxiety might follow you to new places</li>
                     </ul>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800; background: #fff8f0;">
-                    <h3 style="color: #FF9800;">Why Avoidance Backfires (The Neuroscience):</h3>
+                    <h3 style="color: #FF9800;">What Happens In Your Nervous System:</h3>
                     <ul class="strategy-list">
-                        <li>When you avoid, your nervous system learns: "That thing is dangerous. My body was right to be afraid."</li>
-                        <li>Each avoidance strengthens the fear. Your brain files it as "threat confirmed."</li>
-                        <li>The only way your nervous system learns "it's actually safe" is through repeated exposure (staying in the situation) without disaster.</li>
-                        <li>This is why avoidance fixes things for 5 minutes but breaks them for months.</li>
+                        <li>When you step away, your nervous system learns: "I was right to be scared of this."</li>
+                        <li>Each time you avoid, that pattern can get stronger. Your system holds onto the fear more tightly.</li>
+                        <li>Your nervous system learns it's safe through gradual exposure—staying present with something scary and realizing you'll be okay.</li>
+                        <li>Avoidance feels better fast, but the anxiety often comes back. Facing it is harder, but it can help more long-term.</li>
                     </ul>
                 </div>
                 <div class="button-group">
@@ -1073,9 +1202,9 @@
                     <div class="node-description">There are different ways people escape or suppress anxiety. Which approach do you typically use?</div>
                 </div>
                 <div class="button-group">
-                    <button onclick="selectOption('dissociate')">Mental Withdrawal/Numbing</button>
-                    <button onclick="selectOption('distract')">Engaging Distraction</button>
-                    <button onclick="selectOption('avoid')">Situation Avoidance</button>
+                    <button onclick="selectOption('dissociate')">I check out mentally</button>
+                    <button onclick="selectOption('distract')">I redirect my attention</button>
+                    <button onclick="selectOption('avoid')">I avoid the situation</button>
                 </div>
                 <div class="controls">
                     <button class="back-btn" onclick="goBack()">← Back</button>
@@ -1085,7 +1214,7 @@
             <div class="flowchart-node" id="dissociate">
                 <div class="node-box warning">
                     <div class="node-title">💤 Dissociation & Emotional Numbing</div>
-                    <div class="node-description">Checking out mentally, detaching from your body, or using substances to not feel. It's very effective at creating immediate relief—and that's exactly why it can become a primary coping pattern that actually makes things worse.</div>
+                    <div class="node-description">You might be checking out mentally, stepping away from your body, or using something to help numb the feelings. This brings relief right away, which makes sense. But over time, it can sometimes make anxiety harder to work with.</div>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800;">
                     <h3 style="color: #FF9800;">What Dissociation Looks Like (Real Examples):</h3>
@@ -1124,7 +1253,7 @@
             <div class="flowchart-node" id="distract">
                 <div class="node-box">
                     <div class="node-title">🎮 Redirecting Attention</div>
-                    <div class="node-description">Shifting your mental focus to something genuinely engaging. This is more strategic than suppression—you're consciously choosing a different channel rather than forcing the anxiety away. But only use this for LOW anxiety, not panic.</div>
+                    <div class="node-description">Shifting your focus to something that genuinely holds your attention. This is different from forcing the anxiety away—you're choosing to engage with something else. This works better when anxiety is lower; when it's intense, other tools might help more.</div>
                 </div>
                 <div class="outcome-box">
                     <h3>✓ Good Distractions (Engage Your Brain):</h3>
@@ -1146,7 +1275,7 @@
                     </ul>
                 </div>
                 <div class="tool-tip">
-                    <strong>💡 Key Rule:</strong> Only use distraction for low-to-moderate anxiety. If anxiety is high or you're panicking, distraction won't work—you need one of the other tools (breathing, TIPP, grounding). Use distraction strategically, not as your main coping tool.
+                    <strong>💡 Something to know:</strong> Distraction works better when anxiety is lighter. When anxiety is really intense, you might need something more direct like breathing or grounding. It's okay to use different tools for different moments.
                 </div>
                 <div class="button-group">
                     <button onclick="selectOption('recovery')">Integrate & Recover</button>
@@ -1159,7 +1288,7 @@
             <div class="flowchart-node" id="avoid">
                 <div class="node-box warning">
                     <div class="node-title">🚪 Situation/Context Avoidance</div>
-                    <div class="node-description">Staying away from the place, person, or circumstance triggering anxiety. This provides quick relief—which is exactly what makes it a difficult pattern to break.</div>
+                    <div class="node-description">You're stepping away from situations that bring anxiety. This brings relief, which is understandable. Over time, it can sometimes make anxiety bigger, even though it helps right now.</div>
                 </div>
                 <div class="outcome-box" style="border-left-color: #FF9800;">
                     <h3 style="color: #FF9800;">How the Avoidance Cycle Develops:</h3>
@@ -1182,41 +1311,41 @@
             <div class="flowchart-node" id="recovery">
                 <div class="node-box outcome">
                     <div class="node-title">🌟 You Now Have a Map</div>
-                    <div class="node-description">You've just learned that anxiety is not random—it follows patterns, and you can influence which pattern unfolds. Every time you use this flowchart or practice one of these skills, you're building new neural pathways. Your brain is getting stronger and more flexible.</div>
+                    <div class="node-description">You've explored how anxiety shows up and what different responses look like. There are patterns here that you can work with. Practicing new responses, even small ones, can help your nervous system learn over time.</div>
                 </div>
                 <div class="outcome-box">
-                    <h3>Key Takeaways - What This Means for You:</h3>
+                    <h3>Some Things to Keep in Mind:</h3>
                     <ul class="strategy-list">
                         <li>
-                            <strong>Anxiety is Not Your Enemy:</strong> Your nervous system evolved to protect you from danger. Anxiety is the alarm system doing its job—sometimes too efficiently. It's not broken; it's overprotective. This is fixable.
+                            <strong>Anxiety Served a Purpose:</strong> Your nervous system developed anxiety to protect you. It's trying to help, even when it feels overwhelming. It's not broken—it's just working overtime sometimes.
                         </li>
                         <li>
-                            <strong>The Choice Point is Everything:</strong> You now know the four main paths anxiety can take: acknowledge & be kind, acknowledge & be harsh, suppress/ignore, or seek connection. Each path has different outcomes. The good news? You get to choose which path in the moment. That choice is where your power lies.
+                            <strong>You Have Choices in the Moment:</strong> When anxiety shows up, there are different ways to respond. Some responses might feel gentler than others. Over time, you can notice which ones feel right for you.
                         </li>
                         <li>
-                            <strong>Self-Compassion Actually Works:</strong> When you treat your anxious self with kindness instead of criticism, your nervous system receives a "safety signal." This isn't soft or weak—it's neuroscience. Compassion activates your parasympathetic nervous system, which is the only system that can truly calm you down. Self-criticism activates more threat, which keeps you stuck.
+                            <strong>Kindness Can Help:</strong> When you offer yourself gentleness during anxiety, it can feel different than criticism. Many people find this helps, even if it feels small at first.
                         </li>
                         <li>
-                            <strong>Avoidance Always Backfires (Eventually):</strong> Avoiding anxiety feels good for 5 minutes. But each time you avoid, your brain learns "that thing is dangerous"—even if it isn't. The more you avoid, the more things become "off limits." Your life slowly shrinks. The only way out is through (with support).
+                            <strong>Avoidance Has Tradeoffs:</strong> Stepping away from anxiety feels better right away. But sometimes anxiety can grow if we keep avoiding. It can be worth exploring other options, at your own pace.
                         </li>
                         <li>
-                            <strong>You Can Learn New Patterns:</strong> Your current anxiety responses are habits. Habits can be changed with practice. Each time you choose a different path, you're rewiring your brain. It won't be perfect at first—that's normal. With repetition (usually 20-30 times), new responses become automatic.
+                            <strong>Change Takes Time:</strong> New responses don't usually feel automatic right away. They often become easier with practice. There's no rush—you can go at your own pace.
                         </li>
                         <li>
-                            <strong>Your Anxiety Has a Timeline:</strong> Anxiety naturally peaks and then decreases. If you don't add resistance or avoidance, most anxiety episodes resolve in 20-40 minutes. Knowing this? You can tolerate almost anything for 20-40 minutes.
+                            <strong>Anxiety Has a Natural Course:</strong> Most anxiety doesn't last forever—it tends to ease on its own. Everyone's timeline is different, and that's okay.
                         </li>
                         <li>
-                            <strong>Professional Help Isn't Optional If This Is Severe:</strong> If anxiety is keeping you from work, relationships, or daily life, trying to manage it alone will take longer and be harder. A therapist can: accelerate your progress, identify your specific anxiety triggers, teach you personalized skills, and help you break avoidance patterns. This is like hiring a coach—it changes everything. Types of effective therapy: CBT (Cognitive Behavioral Therapy), ACT (Acceptance & Commitment Therapy), and EMDR.
+                            <strong>Support Can Help:</strong> If anxiety is making daily life really hard, talking to a therapist can be useful. They can help you understand your own patterns and teach you skills that fit your life. It's totally okay to reach out.
                         </li>
                         <li>
-                            <strong>This Flowchart is Your Map, Not Your Destination:</strong> The goal isn't to never feel anxious. The goal is to feel anxious and still do your life. Over time, as you practice these skills, anxiety will naturally decrease because your nervous system learns it's safe—but that learning happens through repeated practice in real situations.
+                            <strong>This Tool is a Starting Point:</strong> The goal isn't to never feel anxious—it's to be able to live your life even when anxiety is there. This flowchart is one resource among many.
                         </li>
                     </ul>
                 </div>
 
                 <div style="background: #fffaf0; border-left: 4px solid #FF9800; padding: 15px; margin: 20px 0; border-radius: 4px;">
                     <p style="margin: 0; font-size: 13px; color: #333;">
-                        <strong style="color: #FF9800;">⚡ Next Steps:</strong> Pick ONE strategy from this flowchart and practice it this week. Don't try to do everything at once. Master one technique, then add another. Small consistent practice beats occasional big efforts.
+                        <strong style="color: #FF9800;">💙 If It Helps:</strong> When you're ready, you might try one thing from this tool—even something small. There's no pressure. What matters is what feels right for you.
                     </p>
                 </div>
                 <div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 12px; color: #666;">
@@ -1229,28 +1358,76 @@
             </div>
         </div>
 
-
-
         <div class="footer">
-            <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #ddd;">
-                <strong style="color: #1F3A3D;">⚠️ Important Disclaimers & Usage Rights</strong>
-                <div style="margin-top: 8px; font-size: 12px; line-height: 1.6; text-align: left;">
-                    <p style="margin-bottom: 8px;"><strong>Psychoeducational Use Only:</strong> This tool is designed for educational and self-awareness purposes only. It does not constitute professional medical, psychological, or psychiatric advice.</p>
-                    <p style="margin-bottom: 8px;"><strong>Not a Replacement for Treatment:</strong> This resource is not a substitute for therapy, counseling, medication, or professional mental health treatment. If you are experiencing significant anxiety, depression, or mental health concerns, please seek professional help.</p>
-                    <p style="margin-bottom: 8px;"><strong>Crisis Support:</strong> If you are in crisis or experiencing suicidal thoughts, please contact emergency services (911) or a crisis helpline immediately (e.g., 988 Suicide & Crisis Lifeline in the US).</p>
-                    <p style="margin-bottom: 8px;"><strong>Individual Variation:</strong> Everyone's anxiety presents differently. What works for one person may not work for another. Use this tool as part of a comprehensive approach to mental health.</p>
-                    <p style="margin-bottom: 8px;"><strong>Usage Rights:</strong> This material is provided for use in clinical sessions and personal mental health support. You may share this tool with clients, students, and colleagues for non-commercial educational purposes only. You must provide clear attribution to Practical Clinician™. <strong>You may not resell, rebrand, or claim this content as your own.</strong> Modifications require attribution to both Practical Clinician™ and the original creator.</p>
+            <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ddd;">
+                <strong style="color: #1F3A3D; font-size: 12px;">⚠️ Important Disclaimers & Usage Rights</strong>
+                <div style="margin-top: 6px; font-size: 10px; line-height: 1.4; text-align: left;">
+                    <p style="margin-bottom: 4px;"><strong>Psychoeducational Use Only:</strong> This tool is designed for educational and self-awareness purposes only. It does not constitute professional medical, psychological, or psychiatric advice.</p>
+                    <p style="margin-bottom: 4px;"><strong>Not a Replacement for Treatment:</strong> This resource is not a substitute for therapy, counseling, medication, or professional mental health treatment. If you are experiencing significant anxiety, depression, or mental health concerns, please seek professional help.</p>
+                    <p style="margin-bottom: 4px;"><strong>Crisis Support:</strong> If you are in crisis or experiencing suicidal thoughts, please contact emergency services (911) or a crisis helpline immediately (e.g., 988 Suicide & Crisis Lifeline in the US).</p>
+                    <p style="margin-bottom: 4px;"><strong>Individual Variation:</strong> Everyone's anxiety presents differently. What works for one person may not work for another. Use this tool as part of a comprehensive approach to mental health.</p>
+                    <p style="margin-bottom: 0;"><strong>Usage Rights:</strong> This material is provided for use in clinical sessions and personal mental health support. You may share this tool with clients, students, and colleagues for non-commercial educational purposes only. You must provide clear attribution to Practical Clinician™. <strong>You may not resell, rebrand, or claim this content as your own.</strong> Modifications require attribution to both Practical Clinician™ and the original creator.</p>
                 </div>
             </div>
-            <div style="font-size: 11px; color: #999;">
+            <div style="font-size: 10px; color: #999;">
                 © Practical Clinician™. All rights reserved.
             </div>
         </div>
     </div>
 
-    <script>
-        'use strict';
+    <div class="contact-footer">
+        <div class="email-signup">
+            <div id="mc_embed_shell">
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width: 100%;}
+                </style>
+                <div id="mc_embed_signup">
+                    <form action="https://gmail.us6.list-manage.com/subscribe/post?u=2b6ffe49bbd4b8dab0510a2eb&amp;id=71986910ad&amp;f_id=008cc2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" onsubmit="showThankYouMessage(event)">
+                        <div id="mc_embed_signup_scroll"><h2 style="color: white; text-align: center; font-size: 16px; margin: 0 0 10px 0;">Stay Connected for More Tools & Resources</h2>
+                            <div class="indicates-required" style="font-size: 12px; color: rgba(255,255,255,0.8); text-align: center; margin-bottom: 20px;"><span class="asterisk">*</span> required field</div>
+                            <div class="mc-field-group" style="margin-bottom: 10px;"><label for="mce-EMAIL" style="color: white; font-weight: bold; display: block; margin-bottom: 5px;">Email Address <span class="asterisk" style="color: #FF9800;">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value="" style="width: 100%; padding: 10px; border-radius: 6px; border: none;"></div>
+                            <div class="mc-field-group" style="margin-bottom: 15px;"><label for="mce-FNAME" style="color: white; font-weight: bold; display: block; margin-bottom: 5px;">First Name</label><input type="text" name="FNAME" class="text" id="mce-FNAME" value="" style="width: 100%; padding: 10px; border-radius: 6px; border: none;"></div>
+                            <div id="mce-responses" class="clear foot" style="display: none;">
+                                <div class="response" id="mce-error-response"></div>
+                                <div class="response" id="mce-success-response"></div>
+                            </div>
+                            <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                <input type="text" name="b_2b6ffe49bbd4b8dab0510a2eb_71986910ad" tabindex="-1" value="">
+                            </div>
+                            <div class="optionalParent" id="mc-form-content">
+                                <div class="clear foot">
+                                    <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Submit" style="background: #4CAF50; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">
+                                </div>
+                            </div>
+                            <div id="thank-you-message" style="display: none; text-align: center;">
+                                <p style="color: white; font-size: 16px; margin: 0;">Thank you for subscribing!</p>
+                                <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin: 8px 0 0 0;">We'll keep you updated with new tools and resources.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <div class="contact-footer" style="padding: 20px !important; margin-top: 0 !important;">
+        <div class="social-links">
+            <a href="https://www.instagram.com/practicalclinician" target="_blank" title="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2m0 1.5A4 4 0 0 0 3.5 8v8A4 4 0 0 0 7.5 20h9a4 4 0 0 0 4-4v-8a4 4 0 0 0-4-4h-9m9.5 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2m-5.5 1.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                </svg>
+            </a>
+            <a href="https://www.etsy.com/shop/practical-clinician" target="_blank" title="Etsy Shop" style="font-size: 28px;">🛒</a>
+            <a href="mailto:practicalclinician@gmail.com" title="Email">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <script>
         let stepCount = 0;
         const totalSteps = 8;
         let nodeHistory = ['start'];
@@ -1278,6 +1455,23 @@
             };
         }
 
+
+        function showThankYouMessage(event) {
+            event.preventDefault();
+            
+            var form = document.getElementById('mc-embedded-subscribe-form');
+            var email = document.getElementById('mce-EMAIL').value;
+            var fname = document.getElementById('mce-FNAME').value;
+            
+            // Submit to Mailchimp in the background
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action, true);
+            xhr.send(new FormData(form));
+            
+            // Show thank you message
+            document.getElementById('mc-form-content').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'block';
+        }
 
         function toggleTools() {
             try {
@@ -1494,5 +1688,5 @@
             }
         }
     </script>
-      
+</body>
 </html>
